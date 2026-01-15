@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 import camera from './hooks/camera';
 import skyMap from "./assets/images/starSky.webp"
+import { mercuryObj, venusObj, earthObj, marsObj, jupiterObj, saturnObj, uranusObj, neptuneObj } from './objects/referenceObj';
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -29,7 +30,7 @@ function App() {
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xffffff, 0, 500)
     // const axesHelper = new THREE.AxesHelper(75);
-    // const gridHelper = new THREE.GridHelper(150, 30)
+    // const gridHelper = new THREE.GridHelper(220, 50)
     const cubeTextureLoader = new THREE.CubeTextureLoader()
 
     const cubeTexture = cubeTextureLoader.load([
@@ -87,6 +88,16 @@ function App() {
     let Uranus: THREE.Group | null = null;
     let Neptune: THREE.Group | null = null;
 
+    scene.add(mercuryObj)
+    scene.add(venusObj)
+    scene.add(earthObj)
+    scene.add(marsObj)
+    scene.add(jupiterObj)
+    scene.add(saturnObj)
+    scene.add(uranusObj)
+    scene.add(neptuneObj)
+    
+
     //URLS
     const assetLoader = new GLTFLoader()
     const SunURL = new URL("./objects/sun-converted.glb", import.meta.url)
@@ -105,7 +116,7 @@ function App() {
 
       scene.add(Sun)
       Sun.scale.setScalar(0.5)
-      Sun.position.set(0,0,0)
+      Sun.position.set(0,4,0)
 
       const sunLight = new THREE.PointLight(0xffffff, 300, 300);
       Sun.add(sunLight);
@@ -118,9 +129,9 @@ function App() {
     assetLoader.load(MercuryURL.href, function(glb){
       Mercury = glb.scene
 
-      if (Sun) Sun.add(Mercury)
+      if (mercuryObj) mercuryObj.add(Mercury)
       Mercury.scale.setScalar(0.02)
-      Mercury.position.set(20,0,0)
+      Mercury.position.set(20,4,0)
       Mercury.castShadow = true
       
     }, undefined, function(error){
@@ -131,9 +142,9 @@ function App() {
     assetLoader.load(VenusURL.href, function(glb){
       Venus = glb.scene
 
-      if (Sun) Sun.add(Venus)
+      if (venusObj) venusObj.add(Venus)
       Venus.scale.setScalar(1.5)
-      Venus.position.set(-5,0,26)
+      Venus.position.set(-5,4,35)
       Venus.castShadow = true
       
     }, undefined, function(error){
@@ -143,9 +154,9 @@ function App() {
     assetLoader.load(EarthURL.href, function(glb){
       Earth = glb.scene
 
-      if (Sun) Sun.add(Earth)
+      if (earthObj) earthObj.add(Earth)
       Earth.scale.setScalar(0.025)
-      Earth.position.set(30,0,-8)
+      Earth.position.set(45,4,-8)
       Earth.castShadow = true
       
     }, undefined, function(error){
@@ -155,9 +166,9 @@ function App() {
       assetLoader.load(MarsURL.href, function(glb){
       Mars = glb.scene
 
-      if (Sun) Sun.add(Mars)
+      if (marsObj) marsObj.add(Mars)
       Mars.scale.setScalar(0.03)
-      Mars.position.set(-36,0,-12)
+      Mars.position.set(-55,4,-12)
       Mars.castShadow = true
       
     }, undefined, function(error){
@@ -167,9 +178,9 @@ function App() {
       assetLoader.load(JupiterURL.href, function(glb){
       Jupiter = glb.scene
 
-      if (Sun) Sun.add(Jupiter)
+      if (jupiterObj) jupiterObj.add(Jupiter)
       Jupiter.scale.setScalar(0.04)
-      Jupiter.position.set(40, 0, 12)
+      Jupiter.position.set(65, 4, 12)
       Jupiter.castShadow = true
       
     }, undefined, function(error){
@@ -179,9 +190,9 @@ function App() {
     assetLoader.load(SaturnURL.href, function(glb){
       Saturn = glb.scene
 
-      if (Sun) Sun.add(Saturn)
+      if (saturnObj) saturnObj.add(Saturn)
       Saturn.scale.setScalar(2)
-      Saturn.position.set(-9, 0, -49)
+      Saturn.position.set(-9, 4, -76)
       Saturn.castShadow = true
       
     }, undefined, function(error){
@@ -191,9 +202,9 @@ function App() {
     assetLoader.load(UranusURL.href, function(glb){
       Uranus = glb.scene
 
-      if (Sun) Sun.add(Uranus)
+      if (uranusObj) uranusObj.add(Uranus)
       Uranus.scale.setScalar(0.00006)
-      Uranus.position.set(-58, 0, -27)
+      Uranus.position.set(-85, 4, -27)
       Uranus.castShadow = true
       
     }, undefined, function(error){
@@ -203,9 +214,9 @@ function App() {
     assetLoader.load(NeptuneURL.href, function(glb){
       Neptune = glb.scene
 
-      if (Sun) Sun.add(Neptune)
+      if (neptuneObj) neptuneObj.add(Neptune)
       Neptune.scale.setScalar(0.03)
-      Neptune.position.set(60, 0, -7)
+      Neptune.position.set(100, 4, -7)
       Neptune.castShadow = true
       
     }, undefined, function(error){
@@ -224,6 +235,15 @@ function App() {
       if (Saturn) Saturn.rotation.y += 0.007;   
       if (Uranus) Uranus.rotation.y -= 0.006;   
       if (Neptune) Neptune.rotation.y += 0.005;
+    
+      if (mercuryObj) mercuryObj.rotation.y += 0.006; 
+      if (venusObj) venusObj.rotation.y += 0.002;     
+      if (earthObj) earthObj.rotation.y += 0.002;     
+      if (marsObj) marsObj.rotation.y += 0.002;       
+      if (jupiterObj) jupiterObj.rotation.y += 0.0002;
+      if (saturnObj) saturnObj.rotation.y += 0.0002;   
+      if (uranusObj) uranusObj.rotation.y += 0.0002;   
+      if (neptuneObj) neptuneObj.rotation.y += 0.0002;
 
      
       renderer.render(scene, camera);
