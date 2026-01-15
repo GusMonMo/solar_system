@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
+import textureLoader from './hooks/textureLoad';
 import camera from './hooks/camera';
 import skyMap from "./assets/images/starSky.webp"
 
@@ -31,7 +32,8 @@ function App() {
     // const axesHelper = new THREE.AxesHelper(75);
     // const gridHelper = new THREE.GridHelper(150, 30)
     const cubeTextureLoader = new THREE.CubeTextureLoader()
-    scene.background = cubeTextureLoader.load([
+
+    const cubeTexture = cubeTextureLoader.load([
       skyMap,
       skyMap,
       skyMap,
@@ -39,6 +41,14 @@ function App() {
       skyMap,
       skyMap
     ])
+
+    cubeTexture.generateMipmaps = false;
+    cubeTexture.minFilter = THREE.LinearFilter;
+    cubeTexture.magFilter = THREE.LinearFilter;
+    cubeTexture.wrapS = THREE.ClampToEdgeWrapping;
+    cubeTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+    scene.background = cubeTexture;
     
     // scene.add(axesHelper);
     // scene.add(gridHelper);
@@ -47,7 +57,7 @@ function App() {
     const orbit = new OrbitControls(camera, renderer.domElement)
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    camera.position.set(0, 2, 5);
+    camera.position.set(0, 20, 30);
     orbit.minDistance = 0;
     orbit.maxDistance = 150; 
     orbit.enableDamping = false;
@@ -98,11 +108,8 @@ function App() {
       Sun.scale.setScalar(0.5)
       Sun.position.set(0,0,0)
 
-      const sunLight = new THREE.PointLight(0xffa300, 2, 0, 2);
-      scene.add(sunLight);
-    
-      sunLight.position.copy(Sun.position);
-      sunLight.intensity = 400
+      const sunLight = new THREE.PointLight(0xffffff, 300, 300);
+      Sun.add(sunLight);
       
     }, undefined, function(error){
       console.error(error)
@@ -174,7 +181,7 @@ function App() {
       Saturn = glb.scene
 
       if (Sun) Sun.add(Saturn)
-      Saturn.scale.setScalar(0.005)
+      Saturn.scale.setScalar(2)
       Saturn.position.set(-9, 0, -49)
       Saturn.castShadow = true
       
@@ -186,7 +193,7 @@ function App() {
       Uranus = glb.scene
 
       if (Sun) Sun.add(Uranus)
-      Uranus.scale.setScalar(0.008)
+      Uranus.scale.setScalar(0.00006)
       Uranus.position.set(-58, 0, -27)
       Uranus.castShadow = true
       
