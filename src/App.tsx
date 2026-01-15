@@ -115,13 +115,13 @@ function App() {
 
     const SolarSystemObj = [
       { key: 'Mercury' as const, url: MercuryURL, scale: 0.02, position: [20, 0, 0], ObjRef: mercuryObj },
-      { key: 'Venus' as const, url: VenusURL, scale: 1.5, position: [-5, 0, 26], ObjRef: venusObj },
-      { key: 'Earth' as const, url: EarthURL, scale: 0.025, position: [30, 0, -8], ObjRef: venusObj },
-      { key: 'Mars' as const, url: MarsURL, scale: 0.03, position: [-36, 0, -12], ObjRef: earthObj },
-      { key: 'Jupiter' as const, url: JupiterURL, scale: 0.04, position: [40, 0, 12], ObjRef: marsObj },
-      { key: 'Saturn' as const, url: SaturnURL, scale: 2, position: [-9, 0, -49], ObjRef: jupiterObj },
-      { key: 'Uranus' as const, url: UranusURL, scale: 0.00006, position: [-58, 0, -27], ObjRef: saturnObj },
-      { key: 'Neptune' as const, url: NeptuneURL, scale: 0.03, position: [60, 0, -7],ObjRef: neptuneObj },
+      { key: 'Venus' as const, url: VenusURL, scale: 1.5, position: [-5, 0, 35], ObjRef: venusObj },
+      { key: 'Earth' as const, url: EarthURL, scale: 0.025, position: [45, 0, -8], ObjRef: earthObj },
+      { key: 'Mars' as const, url: MarsURL, scale: 0.03, position: [-52, 0, -12], ObjRef: marsObj },
+      { key: 'Jupiter' as const, url: JupiterURL, scale: 0.04, position: [67, 0, 12], ObjRef: jupiterObj },
+      { key: 'Saturn' as const, url: SaturnURL, scale: 2, position: [-9, 0, -76], ObjRef: saturnObj },
+      { key: 'Uranus' as const, url: UranusURL, scale: 0.00006, position: [-85, 0, -27], ObjRef: uranusObj },
+      { key: 'Neptune' as const, url: NeptuneURL, scale: 0.03, position: [100, 0, -7],ObjRef: neptuneObj },
     ];
 
 
@@ -169,7 +169,7 @@ function App() {
       if (planets.Earth) planets.Earth.rotation.y += 0.003;     
       if (planets.Mars) planets.Mars.rotation.y += 0.003;       
       if (planets.Jupiter) planets.Jupiter.rotation.y += 0.008;
-      if (planets.Saturn) planets.Saturn.rotation.y += 0.007;   
+      if (planets.Saturn) planets.Saturn.rotation.y += 0.0007;   
       if (planets.Uranus) planets.Uranus.rotation.y -= 0.006;   
       if (planets.Neptune) planets.Neptune.rotation.y += 0.005;
     
@@ -177,10 +177,10 @@ function App() {
       if (venusObj) venusObj.rotation.y += 0.002;     
       if (earthObj) earthObj.rotation.y += 0.002;     
       if (marsObj) marsObj.rotation.y += 0.002;       
-      if (jupiterObj) jupiterObj.rotation.y += 0.0002;
-      if (saturnObj) saturnObj.rotation.y += 0.0002;   
-      if (uranusObj) uranusObj.rotation.y += 0.0002;   
-      if (neptuneObj) neptuneObj.rotation.y += 0.0002;
+      if (jupiterObj) jupiterObj.rotation.y += 0.0001;
+      if (saturnObj) saturnObj.rotation.y += 0.0001;   
+      if (uranusObj) uranusObj.rotation.y += 0.0001;   
+      if (neptuneObj) neptuneObj.rotation.y += 0.0001;
 
      
       renderer.render(scene, camera);
