@@ -79,14 +79,17 @@ function App() {
 
     // PlanetRefs
     let Sun: THREE.Group | null = null;
-    let Mercury: THREE.Group | null = null;
-    let Venus: THREE.Group | null = null;
-    let Earth: THREE.Group | null = null;
-    let Mars: THREE.Group | null = null;
-    let Jupiter: THREE.Group | null = null;
-    let Saturn: THREE.Group | null = null;
-    let Uranus: THREE.Group | null = null;
-    let Neptune: THREE.Group | null = null;
+
+    const planets = {
+      Mercury: null as THREE.Group | null,
+      Venus: null as THREE.Group | null,
+      Earth: null as THREE.Group | null,
+      Mars: null as THREE.Group | null,
+      Jupiter: null as THREE.Group | null,
+      Saturn: null as THREE.Group | null,
+      Uranus: null as THREE.Group | null,
+      Neptune: null as THREE.Group | null,
+    };
 
     scene.add(mercuryObj)
     scene.add(venusObj)
@@ -110,6 +113,18 @@ function App() {
     const UranusURL = new URL("./objects/uranus-converted.glb", import.meta.url)
     const NeptuneURL = new URL("./objects/neptune-converted.glb", import.meta.url)
 
+    const SolarSystemObj = [
+      { key: 'Mercury' as const, url: MercuryURL, scale: 0.02, position: [20, 0, 0], ObjRef: mercuryObj },
+      { key: 'Venus' as const, url: VenusURL, scale: 1.5, position: [-5, 0, 26], ObjRef: venusObj },
+      { key: 'Earth' as const, url: EarthURL, scale: 0.025, position: [30, 0, -8], ObjRef: venusObj },
+      { key: 'Mars' as const, url: MarsURL, scale: 0.03, position: [-36, 0, -12], ObjRef: earthObj },
+      { key: 'Jupiter' as const, url: JupiterURL, scale: 0.04, position: [40, 0, 12], ObjRef: marsObj },
+      { key: 'Saturn' as const, url: SaturnURL, scale: 2, position: [-9, 0, -49], ObjRef: jupiterObj },
+      { key: 'Uranus' as const, url: UranusURL, scale: 0.00006, position: [-58, 0, -27], ObjRef: saturnObj },
+      { key: 'Neptune' as const, url: NeptuneURL, scale: 0.03, position: [60, 0, -7],ObjRef: neptuneObj },
+    ];
+
+
     // Sun
     assetLoader.load(SunURL.href, function(glb){
       Sun = glb.scene
@@ -125,116 +140,38 @@ function App() {
       console.error(error)
     })
 
-    //Mercury
-    assetLoader.load(MercuryURL.href, function(glb){
-      Mercury = glb.scene
+    SolarSystemObj.forEach((planet) => {
+      assetLoader.load(
+        planet.url.href,
+        (glb) => {
+          const model = glb.scene;
+          const [x, y, z] = planet.position;
 
-      if (mercuryObj) mercuryObj.add(Mercury)
-      Mercury.scale.setScalar(0.02)
-      Mercury.position.set(20,4,0)
-      Mercury.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
+          model.scale.setScalar(planet.scale);
+          model.position.set(x, y, z);
+          model.castShadow = true;
 
-    //Venus
-    assetLoader.load(VenusURL.href, function(glb){
-      Venus = glb.scene
+        planet.ObjRef.add(model);
 
-      if (venusObj) venusObj.add(Venus)
-      Venus.scale.setScalar(1.5)
-      Venus.position.set(-5,4,35)
-      Venus.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
-    //Earth
-    assetLoader.load(EarthURL.href, function(glb){
-      Earth = glb.scene
-
-      if (earthObj) earthObj.add(Earth)
-      Earth.scale.setScalar(0.025)
-      Earth.position.set(45,4,-8)
-      Earth.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
-    //Mars
-      assetLoader.load(MarsURL.href, function(glb){
-      Mars = glb.scene
-
-      if (marsObj) marsObj.add(Mars)
-      Mars.scale.setScalar(0.03)
-      Mars.position.set(-55,4,-12)
-      Mars.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
-    //Jupiter
-      assetLoader.load(JupiterURL.href, function(glb){
-      Jupiter = glb.scene
-
-      if (jupiterObj) jupiterObj.add(Jupiter)
-      Jupiter.scale.setScalar(0.04)
-      Jupiter.position.set(65, 4, 12)
-      Jupiter.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
-    //Saturn
-    assetLoader.load(SaturnURL.href, function(glb){
-      Saturn = glb.scene
-
-      if (saturnObj) saturnObj.add(Saturn)
-      Saturn.scale.setScalar(2)
-      Saturn.position.set(-9, 4, -76)
-      Saturn.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
-    //Uranus
-    assetLoader.load(UranusURL.href, function(glb){
-      Uranus = glb.scene
-
-      if (uranusObj) uranusObj.add(Uranus)
-      Uranus.scale.setScalar(0.00006)
-      Uranus.position.set(-85, 4, -27)
-      Uranus.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
-    //Neptune
-    assetLoader.load(NeptuneURL.href, function(glb){
-      Neptune = glb.scene
-
-      if (neptuneObj) neptuneObj.add(Neptune)
-      Neptune.scale.setScalar(0.03)
-      Neptune.position.set(100, 4, -7)
-      Neptune.castShadow = true
-      
-    }, undefined, function(error){
-      console.error(error)
-    })
+        planets[planet.key] = model;
+        },
+        undefined,
+        (error) => console.error(error)
+      );
+    });
 
 
     function Animation(){
 
       if (Sun) Sun.rotation.y += 0.001;        
-      if (Mercury) Mercury.rotation.y += 0.004; 
-      if (Venus) Venus.rotation.y -= 0.002;     
-      if (Earth) Earth.rotation.y += 0.003;     
-      if (Mars) Mars.rotation.y += 0.003;       
-      if (Jupiter) Jupiter.rotation.y += 0.008;
-      if (Saturn) Saturn.rotation.y += 0.007;   
-      if (Uranus) Uranus.rotation.y -= 0.006;   
-      if (Neptune) Neptune.rotation.y += 0.005;
+      if (planets.Mercury) planets.Mercury.rotation.y += 0.004; 
+      if (planets.Venus) planets.Venus.rotation.y -= 0.002;     
+      if (planets.Earth) planets.Earth.rotation.y += 0.003;     
+      if (planets.Mars) planets.Mars.rotation.y += 0.003;       
+      if (planets.Jupiter) planets.Jupiter.rotation.y += 0.008;
+      if (planets.Saturn) planets.Saturn.rotation.y += 0.007;   
+      if (planets.Uranus) planets.Uranus.rotation.y -= 0.006;   
+      if (planets.Neptune) planets.Neptune.rotation.y += 0.005;
     
       if (mercuryObj) mercuryObj.rotation.y += 0.006; 
       if (venusObj) venusObj.rotation.y += 0.002;     
