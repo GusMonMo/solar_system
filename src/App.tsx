@@ -28,7 +28,7 @@ function App() {
 
     
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0xffffff, 0, 500)
+    scene.fog = new THREE.Fog(0xffffff, 0, 600)
     // const axesHelper = new THREE.AxesHelper(75);
     // const gridHelper = new THREE.GridHelper(220, 50)
     const cubeTextureLoader = new THREE.CubeTextureLoader()
@@ -57,9 +57,9 @@ function App() {
     const orbit = new OrbitControls(camera, renderer.domElement)
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    camera.position.set(0, 20, 30);
+    camera.position.set(0, 50, 50);
     orbit.minDistance = 0;
-    orbit.maxDistance = 150; 
+    orbit.maxDistance = 200; 
     orbit.enableDamping = false;
     orbit.dampingFactor = 0.1;
     orbit.enablePan = true
@@ -133,7 +133,7 @@ function App() {
       Sun.scale.setScalar(0.5)
       Sun.position.set(0,4,0)
 
-      const sunLight = new THREE.PointLight(0xffffff, 300, 300);
+      const sunLight = new THREE.PointLight(0xffffff, 600, 400, 2);
       Sun.add(sunLight);
       
     }, undefined, function(error){
