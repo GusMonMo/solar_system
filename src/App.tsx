@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/examples/jsm/Addons.js';
-import textureLoader from './hooks/textureLoad';
 import camera from './hooks/camera';
 import skyMap from "./assets/images/starSky.webp"
 
