@@ -28,8 +28,8 @@ function App() {
     
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0xffffff, 0, 500)
-    const axesHelper = new THREE.AxesHelper(75);
-    const gridHelper = new THREE.GridHelper(150, 30)
+    // const axesHelper = new THREE.AxesHelper(75);
+    // const gridHelper = new THREE.GridHelper(150, 30)
     const cubeTextureLoader = new THREE.CubeTextureLoader()
     scene.background = cubeTextureLoader.load([
       skyMap,
@@ -207,7 +207,7 @@ function App() {
     })
 
 
-    function Animation(time : any){
+    function Animation(){
 
       if (Sun) Sun.rotation.y += 0.001;        
       if (Mercury) Mercury.rotation.y += 0.004; 
