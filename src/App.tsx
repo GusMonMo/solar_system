@@ -151,9 +151,13 @@ function App() {
           model.position.set(x, y, z);
           model.castShadow = true;
 
-        planet.ObjRef.add(model);
+          if (planet.key === 'Earth') {
+            model.rotation.z = THREE.MathUtils.degToRad(23.5);
+          }
 
-        planets[planet.key] = model;
+          planet.ObjRef.add(model);
+
+          planets[planet.key] = model;
         },
         undefined,
         (error) => console.error(error)
@@ -163,26 +167,25 @@ function App() {
 
     function Animation(){
 
-      if (Sun) Sun.rotation.y += 0.001;        
-      if (planets.Mercury) planets.Mercury.rotation.y += 0.004; 
-      if (planets.Venus) planets.Venus.rotation.y -= 0.002;     
-      if (planets.Earth) planets.Earth.rotation.y += 0.003;     
-      if (planets.Mars) planets.Mars.rotation.y += 0.003;       
-      if (planets.Jupiter) planets.Jupiter.rotation.y += 0.008;
-      if (planets.Saturn) planets.Saturn.rotation.y += 0.0007;   
-      if (planets.Uranus) planets.Uranus.rotation.y -= 0.006;   
-      if (planets.Neptune) planets.Neptune.rotation.y += 0.005;
+      if (Sun) Sun.rotation.y += 0.003;        
+      if (planets.Mercury) planets.Mercury.rotation.y += 0.0007; 
+      if (planets.Venus) planets.Venus.rotation.y -= 0.0004;     
+      if (planets.Earth) planets.Earth.rotation.y += 0.1;     
+      if (planets.Mars) planets.Mars.rotation.y += 0.1;       
+      if (planets.Jupiter) planets.Jupiter.rotation.y += 0.23; 
+      if (planets.Saturn) planets.Saturn.rotation.y += 0.23;   
+      if (planets.Uranus) planets.Uranus.rotation.y -= 0.13;   
+      if (planets.Neptune) planets.Neptune.rotation.y += 0.14;
     
-      if (mercuryObj) mercuryObj.rotation.y += 0.006; 
-      if (venusObj) venusObj.rotation.y += 0.002;     
-      if (earthObj) earthObj.rotation.y += 0.002;     
-      if (marsObj) marsObj.rotation.y += 0.002;       
-      if (jupiterObj) jupiterObj.rotation.y += 0.0001;
-      if (saturnObj) saturnObj.rotation.y += 0.0001;   
-      if (uranusObj) uranusObj.rotation.y += 0.0001;   
-      if (neptuneObj) neptuneObj.rotation.y += 0.0001;
+      if (mercuryObj) mercuryObj.rotation.y += 0.0011; 
+      if (venusObj) venusObj.rotation.y += 0.0018;     
+      if (earthObj) earthObj.rotation.y += 0.00027;     
+      if (marsObj) marsObj.rotation.y += 0.00016;       
+      if (jupiterObj) jupiterObj.rotation.y += 0.0000027;
+      if (saturnObj) saturnObj.rotation.y += 0.00000952;   
+      if (uranusObj) uranusObj.rotation.y += 0.0000032;   
+      if (neptuneObj) neptuneObj.rotation.y += 0.0000014;
 
-     
       renderer.render(scene, camera);
     }
 
